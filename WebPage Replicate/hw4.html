@@ -1,0 +1,215 @@
+<html>
+<head>
+    <title>Radio Stations</title>
+    <meta charset="UTF-8">
+
+    <script>
+
+    function generateHTML(xmlDoc)
+       {  
+               ELEMENT_NODE = 1;
+               root=xmlDoc.DocumentElement;
+               html_text="<html><head><title>XML Parse Result For Radio Stations</title></head><body>";
+               html_text+="<table border='2'>";
+               header_row=xmlDoc.getElementsByTagName("Header").item(0).childNodes;
+               
+               stations=xmlDoc.getElementsByTagName("Row");
+           
+               // Checking if there are no station records
+               if(stations.length==0)
+               {
+                    alert("No station records found in the file !!");
+                    return 0;
+               }
+               locations=xmlDoc.getElementsByTagName("Location");
+               
+               html_text+="<tbody>";
+               html_text+="<tr>";
+               x=300; y=150;
+               // output the headers
+               for(i=0;i<header_row.length;i++)
+               {  
+                   if(header_row.item(i).nodeType==ELEMENT_NODE)
+                   {                                              
+                        html_text+="<th nowrap>"+header_row.item(i).firstChild.nodeValue+"</th>"; 
+                   }
+               }
+               html_text+="</tr>";
+               // output out the values
+               for(i=0;i<stations.length;i++) //do for all stations
+               {  
+                   stationList=stations.item(i).childNodes; //get properties of a station
+                   
+                   html_text+="<tr>";      //start a new row of the output table
+                   
+                   for(j=0;j<stationList.length;j++)
+                   {  if(stationList.item(j).nodeType==ELEMENT_NODE)
+                        {
+                             if(stationList.item(j).firstChild == null)
+                             {
+                                 html_text+="<td height='150'></td>";  
+                             }
+                             else if(stationList.item(j).nodeName=="Logo")
+                             {//handle images separately
+                                 if(stationList.item(j).firstChild.nodeValue.trim() == "")
+                                 {
+                                    html_text+="<td height='150'></td>"; 
+                                 }
+                                 else
+                                 {
+                                    html_text+="<td><img src='"+stationList.item(j).firstChild.nodeValue+"' width='"+x+"' height='"+y+"' alt='Logo not available'></td>"; 
+                                 }
+                             }
+                             else if(stationList.item(j).nodeName=="Location")
+                             {                                
+                                var locationList = locations.item(i).childNodes;
+                                html_text+="<td nowrap><ul>";
+                                for(k=0;k<locationList.length;k++)
+                                {                       
+                                    if(locationList.item(k).nodeType == ELEMENT_NODE) 
+                                    {
+                                        if(locationList.item(k).firstChild == null) 
+                                        {
+                                        } 
+                                        else if(locationList.item(k).firstChild.nodeValue.trim() == "") 
+                                        {
+                                        }
+                                        else
+                                        {
+                                            html_text+= "<li>" + locationList.item(k).firstChild.nodeValue+ "<\/li>";
+                                        }
+                                    }
+                                }
+                                html_text+="<\/ul><\/td>";
+                             }
+                             else if(stationList.item(j).nodeName=="HomePage")
+                             {                                 
+                                    html_text+="<td nowrap><a href='"+stationList.item(j).firstChild.nodeValue+"' target='_blank'>"+stationList.item(j).firstChild.nodeValue+"</a></td>";                                 
+                             }
+                             else
+                             {                                 
+                                    html_text+="<td nowrap>"+stationList.item(j).firstChild.nodeValue+"</td>";                                                                     
+                             }
+                        }
+                   }
+                   html_text+="</tr>";  
+               }
+               html_text+="</tbody>";  html_text+="</table>";
+               html_text+="</body></html>";  
+       }
+    
+    function viewXML(what)
+        {
+            var URL = what.URL.value;
+            if(URL.trim()=="")
+            {
+                alert("Please enter the URL for the file !!");
+                return;
+            }
+            else
+            {
+                function loadXML(url) 
+                {
+                    var xmlDoc;
+                    if (window.XMLHttpRequest)
+                    {// code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp=new XMLHttpRequest();   
+                    }
+                    else 
+                    {// code for IE6, IE5
+                        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");  
+                    }       
+                    
+                    xmlhttp.open("GET",url,false);
+                    //alert(xmlhttp.status);
+                    xmlhttp.onreadystatechange = function() 
+                    {
+                        if (xmlhttp.readyState == 4)
+                        {
+                            if (xmlhttp.status == 200) 
+                            {
+                                if(xmlhttp.responseXML == null)
+                                {
+                                    alert("Malformed XML !!");                                    
+                                }
+                                else if(xmlhttp.responseXML.documentElement.nodeName == "parsererror")
+                                {
+                                    alert("Malformed XML !!");                                    
+                                }
+                                else
+                                {
+                                    xmlDoc=xmlhttp.responseXML;    
+                                }                                
+                            }
+                            else
+                            {
+                                alert("File does not exist !!");
+                            }
+                        }
+                    }
+                    xmlhttp.send();                    
+                    return xmlDoc;                  
+                }
+                xmlDoc = loadXML(URL);
+                if(xmlDoc == undefined)
+                {
+                    return;
+                }
+                if (window.ActiveXObject) //if IE, simply execute script (due to async prop).
+                {
+                    if (xmlDoc.parseError.errorCode != 0) 
+                    {
+                        var myErr = xmlDoc.parseError;
+                        generateError(xmlDoc);
+                        hWin = window.open("", "Error", "height=300,width=340");
+                        hWin.document.write(html_text);
+                    }
+                    else
+                    {  
+                        var check = generateHTML(xmlDoc);
+                        if(check == 0)
+                        {     
+                            return;
+                        }
+                        else
+                        {
+                            hWin = window.open("", "Assignment4", "height=800,width=1200,scrollbars=yes,resizable=yes");
+                            hWin.document.write(html_text);   
+                        }
+                    }
+                }
+                else //else if FF, execute script once XML object has loaded
+                {
+                     var check = generateHTML(xmlDoc);
+                     if(check == 0)
+                     {      
+                         return;
+                     }
+                     else
+                     {
+                            xmlDoc.onload=generateHTML(xmlDoc);
+                            hWin = window.open("", "Assignment4", "height=800,width=1200,scrollbars=yes");
+                            hWin.document.write(html_text);  
+                     }
+                }
+                hWin.document.close();  
+            }
+        }
+ </script>
+ <style>
+     body {text-align: center; word-spacing: 1.5px; letter-spacing: -0.6px;}
+        
+ </style>
+   
+ </head>
+ <body>
+        <p>Enter URL for Company List XML File</p>
+        <form name="myform" method="POST" id="location">
+        <input type="text" name="URL" maxlength="255" size="25" />
+        <br />
+        <br />
+        <input type="button" name="submit" value="Submit Query" onClick="viewXML(this.form)" />
+        </form>
+     <noscript></noscript>
+</body>
+</html>

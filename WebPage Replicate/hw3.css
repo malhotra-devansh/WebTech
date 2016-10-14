@@ -1,0 +1,159 @@
+*{
+    margin: 0px; 
+    padding: 0px; 
+}
+
+#body_htm{
+    background-color: #FCFBEE;
+    background-image: url("background.png");
+    background-repeat: repeat-x;
+    background-size: 1% 60%;
+    text-align: center;
+    font-family: 'Times New Roman', Times,serif;
+}
+
+.main_image{
+    line-height:0;
+    background-image: url("main.jpg");
+    height: 354px;
+    width: 900px;
+    margin: 0 auto;
+    text-align:center;
+}
+
+#yellow_flower{
+    padding-top: 236px;
+    padding-left: 444px;
+}
+#yellow{
+    font-family: 'Times New Roman', Times,serif;
+    font-size: 32px;
+    font-weight: bold;
+    color: #AB9800;
+}
+
+#flower{
+    font-family: 'Times New Roman', Times,serif;
+    font-size: 30px;
+    font-weight: bold;
+    color:#F3D861;
+}
+
+#brian{
+    font-family: 'Times New Roman', Times,serif;
+    margin-left: 476px;
+    margin-top: 23px;
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    color:#756800;
+}
+
+.menu_image{    
+    background-image: url("menu.png");
+    text-align:center;
+    margin: 0 auto;
+    height: 69px;
+    width:940px;
+}
+
+.menu_table{
+    padding: 15px 11px;
+    width:100%;
+}
+
+.menu_table a{ 
+    color: black;
+    text-decoration:none;
+    font-weight: bold;
+}
+
+.menu_table a:hover{ 
+    color: #E4CA10;
+    text-decoration:none;
+    font-weight: bold;
+}
+
+.menu_table ul {
+    height: 50px;
+    font-size: 17px;
+}
+
+.menu_table ul li{
+    display:inline;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: left;
+    margin: 0px 44px;
+}
+
+.text_background{       
+    background-image: url("text_background.jpg");
+    text-align: justify;
+    height: 315px;
+    width: 900px;
+    margin: 0 auto;
+    
+}
+
+.text_background a{
+    color: #E4CA10;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.main_heading{
+    text-align: left;
+    font-size: 22px;
+    margin-left: 10px;
+    margin-top: -1px;
+    word-spacing: -2.3px;
+}
+
+.heading1{
+    text-align: left;
+    margin: -17px 0px 0px 10px;
+    font-size: 16px;
+    word-spacing: -0.6px;
+    line-height: 17px;
+}
+
+.heading2{
+    text-align: left;
+    margin: -17px 0px 0px 10px;
+    font-size: 16px;
+    word-spacing: 2.5px;
+    line-height: 17px;
+}
+
+.text{
+    text-align: left;
+    font-size: 14px;
+}
+
+.paragraph1{
+    margin-left: 10px;
+    margin-top: 1px;
+    word-spacing: -0.3px;
+    font-size: 14px;
+}
+
+.paragraph2{
+    margin-left: 10px;
+    margin-top: 0px;
+    word-spacing: -0.3px;
+}
+
+.paragraph3{
+    margin-left: 10px;
+    margin-top: 1px;
+    word-spacing: 0.3px;
+}
+
+.bottom_link{
+    text-align: center;
+    font-size: 12px;
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">  
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> 
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>    
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">         
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">      
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>       
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+	<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+	<title>Stock Search</title>
+	<link rel="stylesheet" href="hw8.css">
+</head>
+															<!--Body Starts Here-->	
+<body style="background-color:#356583">	
+	<script>
+		$("#nextSection").prop('disabled', true);
+	</script>
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+			appId      : '213001485741914',
+			xfbml      : true,
+			version    : 'v2.5'
+			});
+		};
+
+		(function(d, s, id)
+		{
+		 var js, fjs = d.getElementsByTagName(s)[0];
+		 if (d.getElementById(id)) {return;}
+		 js = d.createElement(s); js.id = id;
+		 js.src = "//connect.facebook.net/en_US/sdk.js";
+		 fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+  
+	<div class="container text-center">
+			<table class="table">
+				<tbody>
+					<tr>
+						<td><br>
+							<div class="panel" style="border-radius:10px">
+								<h4>Stock Market Search</h4>
+								<div class="row">
+								<form class="form-inline text-center" id="searchForm">
+									<div class="form-group col-lg-3 pull-left required">
+									<div class=classWithPad>
+									<label class="control-label">Enter the stock name or symbol:</label></div>
+									</div>
+									<div class="form-group col-lg-5 pull-left">
+									<div class="classWithPad">
+										<input class="form-control" type="text" size="80" name ="searchVal" id="searchVal" placeholder="Apple Inc or AAPL" data-rule-required="true" autocomplete="off" data-msg-required="Please enter the company name or symbol">
+										</div>
+									</div>                                   
+									<div class="form-group col-lg-4 pull-left">
+									<div class="classWithPad">
+										<button type="button" id="getQuote" class="btn btn-primary" onclick="return loadTable()">
+										<span class="glyphicon glyphicon-search" aria-hidden="true"></span> Get Qoute</button>						
+										<button type="submit" class="btn btn-custom" onclick="clearForm(this.form)"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Clear</button>                                   
+
+									</div>
+									</div>
+								</form><br>
+								</div>
+								<div class="row">
+									<div class="col-lg-3" ></div>
+									<div class="col-lg-6" id="errorMessage"> </div>
+									<div class="col-lg-1.5">
+										<b  style="margin-left: -60px">Powered By:</b><a href="http://dev.markitondemand.com/MODApis/"><img src="http://cs-server.usc.edu:45678/hw/hw8/images/mod-logo.png" alt="Could not load image" height="27" width="140"></a> 
+									</div>
+									<br><br>
+								</div>
+							</div>
+	</div>
+	<hr class="divider">	
+	
+	<div class="panel" style="border-radius:8px">
+		<div class="container"><br>	
+			<div id="carouselpart" class="carousel slide"  data-interval="false" data-ride="carousel">
+				<ol class="carousel-indicators">
+					<li data-target="#carouselpart" data-slide-to="0" class="active"></li>
+					<li data-target="#carouselpart" data-slide-to="1" ></li>
+				</ol>				
+				<div class="carousel-inner">
+					<div class="item active">					
+						<div class="panel panel-default" >
+							<div class="panel-heading clearfix">
+								<div class="col-sm-4 text-left">
+									<b>Favorite List</b>
+								</div>
+								<div class="col-sm-2">	
+								</div>		
+								<div class="col-sm-6">
+								<div class="col-sm-2">
+								</div>
+									<div class="col-sm-10 text-right" id="refDesktop"><span class="hidden-xs">Automatic refresh:</span>							
+									<label><a href="#" data-toggle="tooltip" data-placement="bottom" title="Automatic Refresh On/Off"><input type="checkbox" data-toggle="toggle" id="autoRefresh" onchange="autoref()"></a></label>								
+									<script>
+										$("#nextSection").prop('disabled', true);
+										</script>
+									<a href="#" data-toggle="tooltip" data-placement="bottom" title="Refresh Stock Info"><button type="submit" class="btn btn-custom" id="refresh"> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button></a>
+									<a href="#carouselpart"  data-placement="bottom" title="Go to Stock Information" data-slide="next" data-toggle="tooltip"><button type="submit" class="btn btn-custom" id="nextSection" disabled="disabled"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button></a>
+									</div>
+									
+								</div>							
+							</div>									
+							<div class="panel-body">						
+								<table class="table table-striped">
+								<thead>
+									<tr style="background-color: #f8f8f8">	  
+										<th>Symbol</th>
+										<th>Company Name</th>
+										<th>Stock Price</th>
+										<th> <span class="hidden-xs">Change (Change Percent) </span></th>
+										<th> <span class="hidden-xs">Market Cap </span></th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody id="favorites"></tbody>
+								</table>
+							</div>
+						</div>									
+					</div>
+
+				<div class="item" >				
+					<div class="panel panel-default" >
+						<div class="panel-heading clearfix">
+							<div class="col-sm-1 pull-left">							
+								<a href="#carouselpart" data-slide="prev"><button type="submit" class="btn btn-custom" id="nextSection"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button></a>
+							</div>							
+							<div class="col-sm-10 text center">
+								<b>Stock Details</b>
+							</div>
+						</div>							
+						<div class="panel-body">									
+							<ul class="nav nav-pills" role="tablist" id="desktop">
+								<li id= "stock" role="presentation" class="nav active"><a data-toggle="tab" href="#currentStock" aria-controls="currentStock" role="tab"><span class="glyphicon glyphicon-dashboard"></span> Current Stock</a></li>
+								<li id= "charts" role="presentation"><a data-toggle="tab" href="#historicalChart" aria-controls="historicalChart" role="tab"><span class="glyphicon glyphicon-stats"></span> Historical Charts</a></li>
+								<li id= "news" role="presentation"><a data-toggle="tab" href="#newsFeed" aria-controls="newsFeed" role="tab"><span class="glyphicon glyphicon-link"></span> News Feeds</a></li>
+							</ul>	
+							<ul class="nav nav-pills" role="tablist" id="mobile">
+								<li id= "stock" role="presentation" class="nav active"><a data-toggle="tab" href="#currentStock" aria-controls="currentStock" role="tab"><span class="glyphicon glyphicon-dashboard"></span> Stock</a></li>
+								<li id= "charts" role="presentation"><a data-toggle="tab" href="#historicalChart" aria-controls="historicalChart" role="tab"><span class="glyphicon glyphicon-stats"></span> Charts</a></li>
+								<li id= "news" role="presentation"><a data-toggle="tab" href="#newsFeed" aria-controls="newsFeed" role="tab"><span class="glyphicon glyphicon-link"></span> News</a></li>
+							</ul>								
+							<hr class="divider">
+							<div class="tab-content">
+								<div id="currentStock" role="tabpanel" class="tab-pane active" align="left">
+									<div class="row">
+                                        <div class="col-lg-10 pull-left">
+                                        <table>
+                                             <thead>
+                                             <tr>
+                                                  <th>Stock Details</th>
+                                                  <th></th>
+                                             </tr>
+                                             </thead>
+                                             </table>
+                                        </div>
+                                        <div class="col-lg-2">
+                                             <div class="pull-left">
+                                                  <button class="btn btn-primary" id="fbShare" style="margin: 0 10px 0 0; padding: 0; border: 0;" > <img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" alt="FacebookIcon" height="34" width="34"> </button>
+                                             </div>
+ 
+                                                                     <div id="empty" class="pull-left">
+                                                   <script>$("#empty").html("<button class='btn btn-custom' onclick='change()'> <span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span> </button>");</script>
+                                             </div>
+                                        </div>
+                                    </div> 
+									
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="ui-widget">
+												<table class="table">
+													
+													<tr style="background-color: #f8f8f8">
+													<td>Name</td>
+													<td><span id="stockName">-</span></td>
+													</tr>
+													<tr>
+													<td>Symbol</td>
+													<td><span id="stockSymbol">-</span></td>
+													</tr>
+													<tr style="background-color: #f8f8f8">
+													<td>Last Price</td>
+													<td><span id="lastPrice">-</span></td>
+													</tr>
+													<tr>
+													<td>Change (Change Percent)</td>
+													<td><span id="changePercent">-</span></td>
+													</tr>
+													<tr style="background-color: #f8f8f8">
+													<td>Time and Date</td>
+													<td><span id="dateTime">-</span></td>
+													</tr>
+													<tr>
+													<td>Market Cap</td>
+													<td><span id="marketCap">-</span></td>
+													</tr>
+													<tr style="background-color: #f8f8f8">
+													<td>Volume</td>
+													<td><span id="volume">-</span></td>
+													</tr>
+													<tr>
+													<td>Change YTD(Change Percent YTD)</td>
+													<td><span id="changeYTD">-</span></td>
+													</tr>
+													<tr style="background-color: #f8f8f8">
+													<td>High Price</td>
+													<td><span id="highPrice">-</span></td>
+													</tr>
+													<tr>
+													<td>Low Price</td>
+													<td><span id="lowPrice">-</span></td>
+													</tr>
+													<tr style="background-color: #f8f8f8">
+													<td>Opening Price</td>
+													<td><span id="openPrice">-</span></td>
+													</tr>				
+												</table>
+											</div>									
+										</div>
+										<div class="col-sm-6">										
+											<div id="staticChart"></div>
+										</div>
+							</div>
+						</div>
+						<div id="historicalChart" role="tabpanel" class="tab-pane fade" style="width: 75%">							
+						</div>
+						<div id="newsFeed"class="tab-pane fade">							
+						</div>	
+					</div>			
+				</div>
+			</div>
+		</div>
+	</div><br>								
+	</div>
+	<ol class="carousel-linked-nav pagination" id="slideNavigation">
+		<li class="active"><a href="#1" id="1">1</a></li>
+		<li><a href="#2" id="2">2</a></li>
+	</ol>
+</div>
+</td>						
+</tr>					
+</tbody>
+</table>	
+</div>
+<script src="hw8.js" type="text/javascript"> </script>
+</body>
+</html>

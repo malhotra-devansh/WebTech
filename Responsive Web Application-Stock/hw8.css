@@ -1,0 +1,72 @@
+.img{height:5px; width:10px}
+
+.btn-custom {
+  background-color: hsl(10, 4%, 76%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff", endColorstr="#c4c0bf");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#ffffff), to(#c4c0bf));
+  background-image: -moz-linear-gradient(top, #ffffff, #c4c0bf);
+  background-image: linear-gradient(#ffffff, #c4c0bf);
+  border-color: #c4c0bf #c4c0bf hsl(10, 4%, 70%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.39);
+  -webkit-font-smoothing: antialiased;
+  background-image: -ms-linear-gradient(top, #ffffff, #c4c0bf);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #c4c0bf));
+  background-image: -webkit-linear-gradient(top, #ffffff, #c4c0bf);
+  background-image: -o-linear-gradient(top, #ffffff, #c4c0bf);
+  
+}
+
+#errorMessage {
+	text-align: left;
+	margin-left: 10px;	
+}
+
+.classWithPad
+{
+  margin:0.5px;
+  padding:10px;
+}
+
+.carousel-indicators li { visibility: hidden; }
+
+.table-bordered>tbody>tr>td{
+  background-color: #356583;
+  border-radius: 1px; 
+}
+
+#mobile {
+	display: none;
+}
+.form-group.required .control-label:after { 
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 2px;
+    top:10px;
+}
+
+.help-block, .has-error {
+	color: red !important;
+	text-align: left;
+}
+
+#slideNavigation {
+	display: none;
+}
+
+.error {
+	 border: 1px solid #b94a48!important;
+}
+
+.table-striped>tbody>tr:nth-child(even)>td,
+.table-striped>tbody>tr:nth-child(even)>th {
+  background-color: #f8f8f8;
+}
+ 
+ 
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+  background-color: white;
+}
